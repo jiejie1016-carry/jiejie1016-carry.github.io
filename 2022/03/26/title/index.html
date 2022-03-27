@@ -257,11 +257,12 @@
 <p><img src="https://s2.loli.net/2022/03/27/kTPN3l6x7RvzJdi.png" srcset="/img/loading.gif" lazyload alt="image-20220326201111699"></p>
 <p>​    </p>
 <ol start="3">
-<li>HTTPS Server</li>
+<li><p>HTTPS Server</p>
+<p>​    对HTTPS服务默认配置如下：</p>
+</li>
 </ol>
 </li>
 </ul>
-<p>​                对HTTPS服务默认配置如下：</p>
 <p><img src="https://s2.loli.net/2022/03/27/MksabcCNGUgdvo5.png" srcset="/img/loading.gif" lazyload alt="image-20220326201404884"></p>
 <h3 id="伪造DNS服务"><a href="#伪造DNS服务" class="headerlink" title="伪造DNS服务"></a>伪造DNS服务</h3><p>DNS服务主要用来实现域名解析。用户通过伪造DNS服务，则可以将目标主机请求的域名解析到一个错误的地址，如攻击主机的IP地址。这样，便于伪造基于域名方式的其他服务认证。Responder工具中，内建了DNS服务，可以用来响应A类型查询。下面将使用Responder伪造DNS服务认证，以实施DNS欺骗。伪造DNS服务认证，并启用主机指纹识别。执行命令如下所示：<br>$$<br>responder -I eth0 -vf<br>$$</p>
 <p><img src="https://s2.loli.net/2022/03/27/5AV2lqoUXrjyte8.png" srcset="/img/loading.gif" lazyload alt="image-20220326202402163"></p>
