@@ -16,10 +16,10 @@
   <meta name="author" content="懒羊羊">
   <meta name="keywords" content="">
   
-    <meta name="description" content="大部分服务都采用身份认证的方式，限制用户对特定资源的访问和使用。实施网络欺骗后，安全人员可以通过伪造服务认证的方式，诱骗用户输入合法的身份信息，如用户名和密码。Kali Linux提供一款伪造服务工具Responder，可以用来伪造HTTP&amp;#x2F;HTTPS、SMB、SQL Server、RDP、FTP等多项服务。下面将介绍如何使用Responder工具伪造各种服务，以获取目标用户的身份认证信">
+    <meta name="description" content="传输层是 TCP&amp;#x2F;IP 参考模型中的第三层，主要负责向两个主机中进程之间的通信提供服务。在传输层中，主要使用的协议是 TCP 和 UDP。其中，一些特定的服务都有固定端口。例如，Web 服务的 TCP 端口为80；SSH服务的 TCP 端口为22等。用户可以通过修改端口号，将源数据包发送到一个伪服务器。下面将介绍修改传输层数据流的方法。 使用 tcprewrite 工具tcprewrit">
   
   
-  <title>伪造DNS服务 - 青青草原</title>
+  <title>修改传输层的数据流 - 青青草原</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="伪造DNS服务">
+            <span class="h2" id="subtitle" title="修改传输层的数据流">
               
             </span>
 
@@ -187,8 +187,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-26 22:16" pubdate>
-        2022年3月26日 晚上
+      <time datetime="2022-04-04 21:58" pubdate>
+        2022年4月4日 晚上
       </time>
     </span>
   
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      2.3k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5 分钟
+      8 分钟
     </span>
   
 
@@ -236,65 +236,106 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">伪造DNS服务</h1>
+            <h1 style="display: none">修改传输层的数据流</h1>
             
             <div class="markdown-body">
-              <h5 id="大部分服务都采用身份认证的方式，限制用户对特定资源的访问和使用。实施网络欺骗后，安全人员可以通过伪造服务认证的方式，诱骗用户输入合法的身份信息，如用户名和密码。Kali-Linux提供一款伪造服务工具Responder，可以用来伪造HTTP-x2F-HTTPS、SMB、SQL-Server、RDP、FTP等多项服务。下面将介绍如何使用Responder工具伪造各种服务，以获取目标用户的身份认证信息。"><a href="#大部分服务都采用身份认证的方式，限制用户对特定资源的访问和使用。实施网络欺骗后，安全人员可以通过伪造服务认证的方式，诱骗用户输入合法的身份信息，如用户名和密码。Kali-Linux提供一款伪造服务工具Responder，可以用来伪造HTTP-x2F-HTTPS、SMB、SQL-Server、RDP、FTP等多项服务。下面将介绍如何使用Responder工具伪造各种服务，以获取目标用户的身份认证信息。" class="headerlink" title="大部分服务都采用身份认证的方式，限制用户对特定资源的访问和使用。实施网络欺骗后，安全人员可以通过伪造服务认证的方式，诱骗用户输入合法的身份信息，如用户名和密码。Kali Linux提供一款伪造服务工具Responder，可以用来伪造HTTP&#x2F;HTTPS、SMB、SQL Server、RDP、FTP等多项服务。下面将介绍如何使用Responder工具伪造各种服务，以获取目标用户的身份认证信息。"></a>大部分服务都采用身份认证的方式，限制用户对特定资源的访问和使用。实施网络欺骗后，安全人员可以通过伪造服务认证的方式，诱骗用户输入合法的身份信息，如用户名和密码。Kali Linux提供一款伪造服务工具Responder，可以用来伪造HTTP&#x2F;HTTPS、SMB、SQL Server、RDP、FTP等多项服务。下面将介绍如何使用Responder工具伪造各种服务，以获取目标用户的身份认证信息。</h5><hr>
-<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><ul>
-<li><p>Kali Linux默认安装了Responder工具。在使用之前，需要修改配置文件，Responder工具的配置文件为&#x2F;usr&#x2F;share&#x2F;responder&#x2F;Responder.conf。</p>
-</li>
-<li><p>Responder.conf文件包括三部分配置选项，分别为Responder Core、HTTP Server和HTTPS Server。下面将分别介绍每部分的配置选项。</p>
-<ol>
-<li>Responder Core</li>
-</ol>
-<p>​        Responder Core部分定义了Responder工具的基本配置，如启动的服务、挑战码、日志文件等。</p>
-<p><img src="https://s2.loli.net/2022/03/27/8bWYq7TxB5VrLgU.png" srcset="/img/loading.gif" lazyload alt="image-20220326201251404"></p>
-<p>​        Responder默认开启了所有支持的服务，想要关闭的话，只需要设置：<br>$$<br>SMB&#x3D;OFF<br>$$<br>​        为了伪造所有服务认证，使用默认设置开启所有服务。</p>
-<ol start="2">
-<li>HTTP Server</li>
-</ol>
-<p>​        默认配置信息如下：</p>
-<p><img src="https://s2.loli.net/2022/03/27/kTPN3l6x7RvzJdi.png" srcset="/img/loading.gif" lazyload alt="image-20220326201111699"></p>
-<p>​    </p>
-<ol start="3">
-<li><p>HTTPS Server</p>
-<p>​    对HTTPS服务默认配置如下：</p>
-</li>
-</ol>
-</li>
-</ul>
-<p><img src="https://s2.loli.net/2022/03/27/MksabcCNGUgdvo5.png" srcset="/img/loading.gif" lazyload alt="image-20220326201404884"></p>
-<h3 id="伪造DNS服务"><a href="#伪造DNS服务" class="headerlink" title="伪造DNS服务"></a>伪造DNS服务</h3><p>DNS服务主要用来实现域名解析。用户通过伪造DNS服务，则可以将目标主机请求的域名解析到一个错误的地址，如攻击主机的IP地址。这样，便于伪造基于域名方式的其他服务认证。Responder工具中，内建了DNS服务，可以用来响应A类型查询。下面将使用Responder伪造DNS服务认证，以实施DNS欺骗。伪造DNS服务认证，并启用主机指纹识别。执行命令如下所示：<br>$$<br>responder -I eth0 -vf<br>$$</p>
-<p><img src="https://s2.loli.net/2022/03/27/5AV2lqoUXrjyte8.png" srcset="/img/loading.gif" lazyload alt="image-20220326202402163"></p>
-<p><img src="https://s2.loli.net/2022/03/27/lVm7xRvrQAOUE1M.png" srcset="/img/loading.gif" lazyload alt="image-20220326202641463"></p>
-<p>如此，成功启用了Responder工具，并且开始监听信息。为了验证伪DNS服务器能够成功解析域名，我将手动修改被攻击主机DNS服务器地址，完成攻击。</p>
+              <p>传输层是 TCP&#x2F;IP 参考模型中的第三层，主要负责向两个主机中进程之间的通信提供服务。在传输层中，主要使用的协议是 TCP 和 UDP。其中，一些特定的服务都有固定端口。例如，Web 服务的 TCP 端口为80；SSH服务的 TCP 端口为22等。用户可以通过修改端口号，将源数据包发送到一个伪服务器。下面将介绍修改传输层数据流的方法。</p>
+<h3 id="使用-tcprewrite-工具"><a href="#使用-tcprewrite-工具" class="headerlink" title="使用 tcprewrite 工具"></a>使用 tcprewrite 工具</h3><p>tcprewrite 是 TCP 数据流重放工具集 Tcpreplay 中的一个重写数据包工具。tcprewrite 工具可以修改PCAP包里的所有报文头部，如 MAC 地址、IP 地址、端口等。下面将介绍使用 tcprewrite 工具修改数据流。</p>
+<p>tcprewrite 工具的语法格式如下所示：</p>
+<p>tcprewrite [-flags] [-flag [value]] [–option-name[[&#x3D;| ]value]]。</p>
+<p>其支持的选项及含义：</p>
 <ul>
-<li><p>修改Linux的DNS服务器地址</p>
-<p>​        找到配置文件：</p>
+<li><p><strong>-r string, –portmap&#x3D;string （修改端口号）</strong></p>
+</li>
+<li><p><strong>-r string, –portmap&#x3D;string （修改端口号）</strong></p>
+</li>
+<li><p><strong>-N string, –pnat&#x3D;string （通过伪NAT重写IP地址）</strong></p>
+</li>
+<li><p><strong>-S string, –srcipmap&#x3D;string （通过伪NAT改写源地址IP)</strong></p>
+</li>
+<li><p><strong>-D string, –dstipmap&#x3D;string (通过伪NAT改写目的地址IP)</strong></p>
+</li>
+<li><p><strong>-e string, –endpoints&#x3D;string （在最后两个点之间改写IP地址）</strong></p>
+</li>
+<li><p><strong>-b, –skipbroadcast （不重写广播和多播地址）</strong></p>
+</li>
+<li><p><strong>-C, –fixcsum （强制重新计算包头checksum）</strong></p>
+</li>
+<li><p><strong>-m number， –person&#x3D;number （指定MTU）</strong></p>
+</li>
+<li><p><strong>–mtu-trunc (大于指定MTU报文被截断)</strong></p>
+</li>
+<li><p><strong>-E, –efcs （删除以太网最后一帧的校验和（删除最后 2 个字节））</strong></p>
+</li>
+<li><p><strong>–ttl&#x3D;string （修改TTL值）</strong></p>
+</li>
+<li><p><strong>–tos&#x3D;number （修改TOS值）</strong></p>
+</li>
+<li><p><strong>–tclass&#x3D;number （修改tcalss值，主要用在ipv6）</strong></p>
+</li>
+<li><p><strong>–flowlabel&#x3D;number (修改IPv6 Flow Label)</strong></p>
+</li>
+<li><p><strong>-F string, –fixlen&#x3D;string (&#x3D;pad用0填充pad的值，使满足报文包头的lenth的值，&#x3D;del只留包头删除pad,主要用于抓的报文只抓了包头没有抓数据部分）</strong></p>
+</li>
+<li><p><strong>–skipl2broadcast （跳过重写2层的mac地址，和广播包的mac地址）</strong></p>
+</li>
+<li><p><strong>–skipl2broadcast （跳过重写2层的mac地址，和广播包的mac地址）</strong></p>
+</li>
+<li><p><strong>–skipl2broadcast （跳过重写2层的mac地址，和广播包的mac地址）</strong></p>
+</li>
+<li><p><strong>–skipl2broadcast （跳过重写2层的mac地址，和广播包的mac地址）</strong></p>
+</li>
+<li><p><strong>–hdlc-control&#x3D;number (将Ethernet协议头转成Cisco HDLC)</strong></p>
+</li>
+<li><p><strong>-o string, –outfile&#x3D;string （输出重写完成的文件名）</strong></p>
+</li>
+<li><p>举个实例：</p>
+<p>修改捕获文件 test.pcap 中的端口80为8080，，并且将修改后的数据包文件保存为 tcp.pcap。具体步骤如下：</p>
+<p>(1) 打开 test.pacp 捕获文件。（首先使用wireshark抓取）</p>
+<p><img src="https://s2.loli.net/2022/04/09/WQ6Tf8MdiZac5Nr.png" srcset="/img/loading.gif" lazyload alt="image-20220409134416883"></p>
+<p>(2) 从上图可以看出，改捕获文件的数据包源端口为34464，目标端口为80。下面修改端口号80为8080.执行命令：</p>
+<p>tcprewrite –portmap&#x3D;80:8080 -i &#x2F;home&#x2F;kali&#x2F;Desktop&#x2F;test.pcap -o &#x2F;home&#x2F;kali&#x2F;Desktop&#x2F;tcp.pcap</p>
+<p>执行命令以后，将不会输出任何信息。而是在当前目录下生成了一个新的捕获文件。</p>
+<p><img src="https://s2.loli.net/2022/04/09/gSVseZw6taDpjWY.png" srcset="/img/loading.gif" lazyload alt="image-20220409134955008"></p>
+<p>(3) 打开 tcp.pcap 捕获文件，端口已经改掉了。</p>
+<p><img src="https://s2.loli.net/2022/04/09/yMeA4KahfZEYvHP.png" srcset="/img/loading.gif" lazyload alt="image-20220409135058804"></p>
 </li>
 </ul>
-<p>$$<br>&#x2F;etc&#x2F;resolv.conf<br>$$<br>​    然后把nameserve命令修改为上面我们攻击者的IP，也就是伪DNS服务器地址即可。</p>
-<p>​    （注意一下，Linux修改文件：vim命令修改文件；x是删除；i是插入；esc退出编辑；:q表示不保存；:wq表示保存修改）</p>
-<p><img src="https://s2.loli.net/2022/03/27/SHg8saWMQTwrUl1.png" srcset="/img/loading.gif" lazyload alt="image-20220326203346232"></p>
-<p>​        如图所示，我们已经修改完成啦！</p>
+<h3 id="使用netsed工具"><a href="#使用netsed工具" class="headerlink" title="使用netsed工具"></a>使用netsed工具</h3><p>netsed是一款简易的数据修改工具。该工具支持对TCP和UDP的数据进行修改。渗透测试人员通过指定IP地址、端口号的方式，确定要修改的网络数据，然后再指定修改规则，就可以实现网络修改的功能。在修改规则中，用户不仅可以指定替换内容，还可以指定修改次数和数据流向。下面将介绍使用netsed工具修改数据的方法。</p>
+<p>netsed工具的语法格式如下所示：</p>
+<p>netsed [option] proto lport rhost rport rule1 [ rule2 … ]</p>
+<p>其支持的选项及含义：</p>
 <ul>
-<li>修改windows的DNS服务器地址（以windows7为例）</li>
-</ul>
-<p>​    <img src="https://s2.loli.net/2022/03/27/QZRiBIjvNsXYJFz.png" srcset="/img/loading.gif" lazyload alt="image-20220326212856100"></p>
-<p>点击一下确定，就改好了！</p>
-<h3 id="下面就到了最激动人心的环节，我要开始验证能否攻击成功了！"><a href="#下面就到了最激动人心的环节，我要开始验证能否攻击成功了！" class="headerlink" title="下面就到了最激动人心的环节，我要开始验证能否攻击成功了！"></a>下面就到了最激动人心的环节，我要开始验证能否攻击成功了！</h3><ul>
-<li>首先是攻击Linux操作系统的主机，开启Responder服务，被攻击主机开始访问网站，同时查看监听到的信息，如下：</li>
-</ul>
-<p><img src="https://s2.loli.net/2022/03/27/Pksdz51uB2UED68.png" srcset="/img/loading.gif" lazyload alt="image-20220326215510115"></p>
+<li><p><strong>-4,–ipv4: 使用 IPv4 工具</strong></p>
+</li>
+<li><p><strong>-6.–ipv6: 使用 IPv6 工具</strong></p>
+</li>
+<li><p><strong>–ipany：自动判断IPv4或者IPv6</strong></p>
+</li>
+<li><p><strong>-h,–help: 显示帮助信息</strong></p>
+</li>
+<li><p><strong>rhost: 指定远程主机</strong></p>
+</li>
+<li><p><strong>rport：指定远程端口</strong></p>
+</li>
+<li><p><strong>ruleN：指定修改规则</strong></p>
+</li>
+<li><p><strong>falg：表示修改的数量</strong></p>
+</li>
+<li><p><strong>i和I：表示进站数据</strong></p>
+</li>
+<li><p><strong>o和O：表示出站数据</strong></p>
 <ul>
-<li>然后我们攻击一下windows操作系统的主机（我用的自己的kali Linux攻击自己的windows 7），查看监听信息，如下：</li>
+<li><p>举个实例：</p>
+<p>使用 netsed 工具修改 TCP 数据流。例如，将传输数据中的 baidu 替换为 test，并且将修改后的数据发送到主句61.135.169.121的80端口。执行命令：</p>
+<p>netsed –ipany tcp 443 61.135.159.121 80 s&#x2F;baidu&#x2F;test</p>
+<p><img src="https://s2.loli.net/2022/04/09/J2fqpOk5W3rGLCM.png" srcset="/img/loading.gif" lazyload alt="image-20220409134828403"></p>
+<p>从输出的信息中可以看见，已经成功解析并且加载了一条规则，而且正在监听 TCP 的80端口。此时，攻击主机监听到的80端口数据包将会应用规则 s&#x2F;baidu&#x2F;test，然后将修改后的数据发送到主机61.135.169.121的443端口。</p>
+<p>麻了，封校好几天了，天天摆烂，呜呜。</p>
+</li>
 </ul>
-<p><img src="https://s2.loli.net/2022/03/27/Q8VBh6EkXUxY3jS.png" srcset="/img/loading.gif" lazyload alt="image-20220326213833765"></p>
-<ul>
-<li>因为正好有win10虚拟机，所以我又试了一下win10的。</li>
+</li>
 </ul>
-<p><img src="https://s2.loli.net/2022/03/27/EpXD7WHQ84lMi3r.png" srcset="/img/loading.gif" lazyload alt="image-20220326214906230"></p>
-<p>没了，真没了，今天肚子疼，算是摸鱼了呜呜呜。</p>
 
             </div>
             <hr>
@@ -305,7 +346,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%BD%91%E7%BB%9C%E9%98%B2%E6%8A%A4%E4%B8%8E%E5%85%A5%E4%BE%B5/">网络防护与入侵</a>
+                      <a class="hover-with-bg" href="/tags/%E7%BD%91%E7%BB%9C%E9%98%B2%E6%8A%A4%E4%B8%8E%E5%8F%8D%E5%85%A5%E4%BE%B5/">网络防护与反入侵</a>
                     
                   </div>
                 
@@ -322,18 +363,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/04/11-2/11-2/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">修改传输层的数据流</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/18/hello-world/">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2022/03/26/title/">
+                        <span class="hidden-mobile">伪造DNS服务</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
