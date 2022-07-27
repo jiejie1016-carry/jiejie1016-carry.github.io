@@ -16,10 +16,10 @@
   <meta name="author" content="懒羊羊">
   <meta name="keywords" content="">
   
-    <meta name="description" content="">
+    <meta name="description" content="题目描述给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。 示例 1：输入：nums &amp;#x3D; [1,5,11,5]输出：true解释：数组可以分割成 [1, 5, 5] 和 [11] 。 示例 2：输入：nums &amp;#x3D; [1,2,3,5]输出：false解释：数组不能分割成两个元素和相等的子集。 分析01背包问题，">
   
   
-  <title>青青草原</title>
+  <title>416分割等和子集 - 青青草原</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="">
+            <span class="h2" id="subtitle" title="416分割等和子集">
               
             </span>
 
@@ -187,8 +187,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-06-09 10:35" pubdate>
-        2022年6月9日 上午
+      <time datetime="2022-07-27 22:33" pubdate>
+        2022年7月27日 晚上
       </time>
     </span>
   
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      827 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1 分钟
+      3 分钟
     </span>
   
 
@@ -236,15 +236,28 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">416分割等和子集</h1>
             
             <div class="markdown-body">
-              
+              <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p>
+<h4 id="示例-1："><a href="#示例-1：" class="headerlink" title="示例 1："></a>示例 1：</h4><p>输入：nums &#x3D; [1,5,11,5]<br>输出：true<br>解释：数组可以分割成 [1, 5, 5] 和 [11] 。</p>
+<h4 id="示例-2："><a href="#示例-2：" class="headerlink" title="示例 2："></a>示例 2：</h4><p>输入：nums &#x3D; [1,2,3,5]<br>输出：false<br>解释：数组不能分割成两个元素和相等的子集。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>01背包问题，每个数字只有取和不取的两种可能。可以理解为容量为sum&#x2F;2的背包。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></div></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta"># <span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> n;<br>    cin&gt;&gt;n;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">nums</span><span class="hljs-params">(n,<span class="hljs-number">0</span>)</span></span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>    &#123;<br>        cin&gt;&gt;nums[i];<br>    &#125;<br>    <span class="hljs-type">int</span> sum=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>    &#123;<br>        sum+=nums[i];<br>    &#125;<br>    <span class="hljs-keyword">if</span>(sum%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>)<br>    &#123;<br>    <span class="hljs-type">int</span> bag=sum/<span class="hljs-number">2</span>;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(bag+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>    &#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=bag;j&gt;=nums[i];j--)<br>        &#123;<br>            dp[j]=<span class="hljs-built_in">max</span>(dp[j],dp[j-nums[i]]+nums[i]);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span>(dp[bag]==bag)    cout&lt;&lt;<span class="hljs-string">&quot;true&quot;</span>&lt;&lt;endl;<br>    <span class="hljs-keyword">else</span>   cout&lt;&lt;<span class="hljs-string">&quot;false&quot;</span>&lt;&lt;endl;<br>    &#125;<br>    <span class="hljs-keyword">else</span> cout&lt;&lt;<span class="hljs-string">&quot;false&quot;</span>&lt;&lt;endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/leetcode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">leetcode 每日一题</a>
+                    
+                  </div>
                 
               </div>
               
@@ -259,18 +272,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/09/dsoj2/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">数据结构第二次上机实验代码</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/13/SQL/">
-                        <span class="hidden-mobile">关系数据库标准语言SQL</span>
+                      <a href="/2022/06/16/dsoj3/">
+                        <span class="hidden-mobile">数据结构第三次上机实验代码</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
