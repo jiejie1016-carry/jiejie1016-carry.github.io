@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>494目标和</title>
+    <link href="/2022/07/28/leetcode-day2/"/>
+    <url>/2022/07/28/leetcode-day2/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给你一个整数数组 nums 和一个整数 target 。</p><p>向数组中的每个整数前添加 ‘+’ 或 ‘-‘ ，然后串联起所有整数，可以构造一个 表达式 ：</p><p>例如，nums &#x3D; [2, 1] ，可以在 2 之前添加 ‘+’ ，在 1 之前添加 ‘-‘ ，然后串联起来得到表达式 “+2-1” 。<br>返回可以通过上述方法构造的、运算结果等于 target 的不同 表达式 的数目。</p><h4 id="示例-1："><a href="#示例-1：" class="headerlink" title="示例 1："></a>示例 1：</h4><p>输入：nums &#x3D; [1,1,1,1,1], target &#x3D; 3<br>输出：5<br>解释：一共有 5 种方法让最终目标和为 3 。<br>-1 + 1 + 1 + 1 + 1 &#x3D; 3<br>+1 - 1 + 1 + 1 + 1 &#x3D; 3<br>+1 + 1 - 1 + 1 + 1 &#x3D; 3<br>+1 + 1 + 1 - 1 + 1 &#x3D; 3<br>+1 + 1 + 1 + 1 - 1 &#x3D; 3</p><h4 id="示例-2："><a href="#示例-2：" class="headerlink" title="示例 2："></a>示例 2：</h4><p>输入：nums &#x3D; [1], target &#x3D; 1<br>输出：1</p><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>假设所有数的和是 sum，含有加号的数的和为 x ，那么含有减号的数的和就是 sum-x ；且依据题意，有x-(sum-x)&#x3D;target；所以 x&#x3D;(target+sum)&#x2F;2。问题变成了容量为 x 的01背包有多少种装载方法。递推公式&#x3D;&gt;dp[j]&#x3D;dp[j-num[0]]+dp[j-nums[1]]+···+dp[j-nums[n-1]]。</p><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta"># <span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> n;<br>    cin&gt;&gt;n;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">nums</span><span class="hljs-params">(n,<span class="hljs-number">0</span>)</span></span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>    &#123;<br>        cin&gt;&gt;nums[i];<br>    &#125;<br>    <span class="hljs-type">int</span> target;<br>    cin&gt;&gt;target;<br>    <span class="hljs-type">int</span> sum=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>    &#123;<br>        sum+=nums[i];<br>    &#125;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(target)&gt;sum || (target+sum)%<span class="hljs-number">2</span>!=<span class="hljs-number">0</span>) cout&lt;&lt;<span class="hljs-number">0</span>&lt;&lt;endl;<br>    <span class="hljs-keyword">else</span> <br>    &#123;<br>        <span class="hljs-type">int</span> bag=(target+sum)/<span class="hljs-number">2</span>;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(bag+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span>;<br>        dp[<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>        &#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=bag;j&gt;=nums[i];j--)<br>            &#123;<br>                dp[j]+=dp[j-nums[i]];<br>            &#125;<br>        &#125;<br>        cout&lt;&lt;dp[bag]&lt;&lt;endl;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>leetcode 每日一题</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>416分割等和子集</title>
     <link href="/2022/07/27/leetcode-day1/"/>
     <url>/2022/07/27/leetcode-day1/</url>
