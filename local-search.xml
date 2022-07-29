@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>leetcode-day3</title>
+    <link href="/2022/07/29/leetcode-day3/"/>
+    <url>/2022/07/29/leetcode-day3/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p><p>子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p><h4 id="示例-1："><a href="#示例-1：" class="headerlink" title="示例 1："></a>示例 1：</h4><p>输入：nums &#x3D; [10,9,2,5,3,7,101,18]<br>输出：4<br>解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。</p><h4 id="示例-2："><a href="#示例-2：" class="headerlink" title="示例 2："></a>示例 2：</h4><p>输入：nums &#x3D; [0,1,0,3,2,3]<br>输出：4<br>示例 3：</p><p>输入：nums &#x3D; [7,7,7,7,7,7,7]<br>输出：1</p><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>(1) dp[i] 表示下标为 i 的数及其之前最长递增子序列的个数；</p><p>(2) 递推公式为 if(nums[i]&gt;nums[j])    dp[i]&#x3D;max(dp[i],dp[j]+1)；</p><p>(3) 初始化 每个都是1；</p><p>(4) 遍历顺序 ：从前至后；</p><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></div></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta"># <span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-type">int</span> n;<br>cin&gt;&gt;n;<br><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">nums</span><span class="hljs-params">(n,<span class="hljs-number">0</span>)</span></span>;<br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>&#123;<br>cin&gt;&gt;nums[i];<br>&#125;<br><span class="hljs-keyword">if</span>(n&lt;=<span class="hljs-number">1</span>) cout&lt;&lt;n&lt;&lt;endl;<br><span class="hljs-keyword">else</span><br>&#123;<br>vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-built_in">dp</span>(n,<span class="hljs-number">1</span>);<span class="hljs-comment">//初始化</span><br><span class="hljs-type">int</span> result=<span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>&#123;<br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;i;j++)<br>&#123;<br><span class="hljs-keyword">if</span>(nums[i]&gt;nums[j])dp[i]=<span class="hljs-built_in">max</span>(dp[i],dp[j]+<span class="hljs-number">1</span>);<br>&#125;<br><span class="hljs-keyword">if</span>(dp[i]&gt;result) result=dp[i];<br>&#125;<br>cout&lt;&lt;result&lt;&lt;endl;<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>​    </p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>leetcode 每日一题</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>494目标和</title>
     <link href="/2022/07/28/leetcode-day2/"/>
     <url>/2022/07/28/leetcode-day2/</url>

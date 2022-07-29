@@ -16,10 +16,10 @@
   <meta name="author" content="懒羊羊">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述给你一个整数数组 nums 和一个整数 target 。 向数组中的每个整数前添加 ‘+’ 或 ‘-‘ ，然后串联起所有整数，可以构造一个 表达式 ： 例如，nums &amp;#x3D; [2, 1] ，可以在 2 之前添加 ‘+’ ，在 1 之前添加 ‘-‘ ，然后串联起来得到表达式 “+2-1” 。返回可以通过上述方法构造的、运算结果等于 target 的不同 表达式 的数目。 示例 1：输">
+    <meta name="description" content="题目描述给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。 子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。 示例 1：输入：nums &amp;#x3D; [10,9,2,5,3,7,101,18]输出：4解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。 示例">
   
   
-  <title>494目标和 - 青青草原</title>
+  <title>leetcode-day3 - 青青草原</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="494目标和">
+            <span class="h2" id="subtitle" title="leetcode-day3">
               
             </span>
 
@@ -187,8 +187,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-07-28 22:28" pubdate>
-        2022年7月28日 晚上
+      <time datetime="2022-07-29 22:44" pubdate>
+        2022年7月29日 晚上
       </time>
     </span>
   
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      857 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4 分钟
+      3 分钟
     </span>
   
 
@@ -236,17 +236,21 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">494目标和</h1>
+            <h1 style="display: none">leetcode-day3</h1>
             
             <div class="markdown-body">
-              <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给你一个整数数组 nums 和一个整数 target 。</p>
-<p>向数组中的每个整数前添加 ‘+’ 或 ‘-‘ ，然后串联起所有整数，可以构造一个 表达式 ：</p>
-<p>例如，nums &#x3D; [2, 1] ，可以在 2 之前添加 ‘+’ ，在 1 之前添加 ‘-‘ ，然后串联起来得到表达式 “+2-1” 。<br>返回可以通过上述方法构造的、运算结果等于 target 的不同 表达式 的数目。</p>
-<h4 id="示例-1："><a href="#示例-1：" class="headerlink" title="示例 1："></a>示例 1：</h4><p>输入：nums &#x3D; [1,1,1,1,1], target &#x3D; 3<br>输出：5<br>解释：一共有 5 种方法让最终目标和为 3 。<br>-1 + 1 + 1 + 1 + 1 &#x3D; 3<br>+1 - 1 + 1 + 1 + 1 &#x3D; 3<br>+1 + 1 - 1 + 1 + 1 &#x3D; 3<br>+1 + 1 + 1 - 1 + 1 &#x3D; 3<br>+1 + 1 + 1 + 1 - 1 &#x3D; 3</p>
-<h4 id="示例-2："><a href="#示例-2：" class="headerlink" title="示例 2："></a>示例 2：</h4><p>输入：nums &#x3D; [1], target &#x3D; 1<br>输出：1</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>假设所有数的和是 sum，含有加号的数的和为 x ，那么含有减号的数的和就是 sum-x ；且依据题意，有x-(sum-x)&#x3D;target；所以 x&#x3D;(target+sum)&#x2F;2。问题变成了容量为 x 的01背包有多少种装载方法。递推公式&#x3D;&gt;dp[j]&#x3D;dp[j-num[0]]+dp[j-nums[1]]+···+dp[j-nums[n-1]]。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta"># <span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> n;<br>    cin&gt;&gt;n;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">nums</span><span class="hljs-params">(n,<span class="hljs-number">0</span>)</span></span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>    &#123;<br>        cin&gt;&gt;nums[i];<br>    &#125;<br>    <span class="hljs-type">int</span> target;<br>    cin&gt;&gt;target;<br>    <span class="hljs-type">int</span> sum=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>    &#123;<br>        sum+=nums[i];<br>    &#125;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(target)&gt;sum || (target+sum)%<span class="hljs-number">2</span>!=<span class="hljs-number">0</span>) cout&lt;&lt;<span class="hljs-number">0</span>&lt;&lt;endl;<br>    <span class="hljs-keyword">else</span> <br>    &#123;<br>        <span class="hljs-type">int</span> bag=(target+sum)/<span class="hljs-number">2</span>;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(bag+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span>;<br>        dp[<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>        &#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=bag;j&gt;=nums[i];j--)<br>            &#123;<br>                dp[j]+=dp[j-nums[i]];<br>            &#125;<br>        &#125;<br>        cout&lt;&lt;dp[bag]&lt;&lt;endl;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p>
+<p>子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p>
+<h4 id="示例-1："><a href="#示例-1：" class="headerlink" title="示例 1："></a>示例 1：</h4><p>输入：nums &#x3D; [10,9,2,5,3,7,101,18]<br>输出：4<br>解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。</p>
+<h4 id="示例-2："><a href="#示例-2：" class="headerlink" title="示例 2："></a>示例 2：</h4><p>输入：nums &#x3D; [0,1,0,3,2,3]<br>输出：4<br>示例 3：</p>
+<p>输入：nums &#x3D; [7,7,7,7,7,7,7]<br>输出：1</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>(1) dp[i] 表示下标为 i 的数及其之前最长递增子序列的个数；</p>
+<p>(2) 递推公式为 if(nums[i]&gt;nums[j])    dp[i]&#x3D;max(dp[i],dp[j]+1)；</p>
+<p>(3) 初始化 每个都是1；</p>
+<p>(4) 遍历顺序 ：从前至后；</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></div></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta"># <span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-type">int</span> n;<br>	cin&gt;&gt;n;<br>	<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">nums</span><span class="hljs-params">(n,<span class="hljs-number">0</span>)</span></span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>	&#123;<br>		cin&gt;&gt;nums[i];<br>	&#125;<br>	<span class="hljs-keyword">if</span>(n&lt;=<span class="hljs-number">1</span>) cout&lt;&lt;n&lt;&lt;endl;<br>	<span class="hljs-keyword">else</span><br>	&#123;<br>	vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-built_in">dp</span>(n,<span class="hljs-number">1</span>);<span class="hljs-comment">//初始化</span><br>	<span class="hljs-type">int</span> result=<span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>	&#123;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;i;j++)<br>		&#123;<br>			<span class="hljs-keyword">if</span>(nums[i]&gt;nums[j])	dp[i]=<span class="hljs-built_in">max</span>(dp[i],dp[j]+<span class="hljs-number">1</span>);<br>		&#125;<br>		<span class="hljs-keyword">if</span>(dp[i]&gt;result) result=dp[i];<br>	&#125;<br>	cout&lt;&lt;result&lt;&lt;endl;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<p>​    </p>
 
             </div>
             <hr>
@@ -274,18 +278,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/07/29/leetcode-day3/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">leetcode-day3</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/27/leetcode-day1/">
-                        <span class="hidden-mobile">416分割等和子集</span>
+                      <a href="/2022/07/28/leetcode-day2/">
+                        <span class="hidden-mobile">494目标和</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
